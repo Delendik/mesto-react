@@ -1,22 +1,22 @@
 import React from 'react';
-import Header from '../Header/Header';
-import Main from '../Main/Main';
-import Footer from '../Footer/Footer';
-import PopupWithForm from '../PopupWithForm/PopupWithForm';
-import ImagePopup from '../ImagePopup/ImagePopup';
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
+import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
 
 function App() {
 
   const [isEditProfilePopupOpen, isOpenEditProfile] =  React.useState(false);
   const [isAddPlacePopupOpen, isOpenAddPlace] =  React.useState(false);
   const [isEditAvatarPopupOpen, isOpenEditAvatar] =  React.useState(false);
-  const [selectedCard, isOpenselectedCard] =  React.useState(null);
+  const [selectedCard, isOpenSelectedCard] =  React.useState(null);
 
   function handleEditProfileClick(){
     isOpenEditProfile(true);
   }
 
-  function handleEdtAvatarClick(){
+  function handleEditAvatarClick(){
     isOpenEditAvatar(true);
   }
 
@@ -28,7 +28,7 @@ function App() {
     isOpenEditProfile(false);
     isOpenEditAvatar(false);
     isOpenAddPlace(false);
-    isOpenselectedCard(null)
+    isOpenSelectedCard(null)
   }
 
   return (
@@ -38,8 +38,8 @@ function App() {
         <Main 
           onEditProfile = {handleEditProfileClick}
           onAddPlace = {handleAddPlaceClick}
-          onEditAvatar = {handleEdtAvatarClick}
-          onCardClick = {isOpenselectedCard}
+          onEditAvatar = {handleEditAvatarClick}
+          onCardClick = {isOpenSelectedCard}
         />
         <Footer />
         <PopupWithForm 

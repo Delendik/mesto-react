@@ -1,34 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import api from '../../utils/api';
-import Card from '../Card/Card';
+import api from '../utils/api';
+import Card from './Card';
 
 function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}){
-  const [userName, setInfoName] =  useState();
-  const [userDescription, setInfoDescription] =  useState();
-  const [userAvatar, setInfoAvatar] =  useState();
-  const [cards, setInfoCard] =  useState([]);
+  const [userName, setUserName] =  useState();
+  const [userDescription, setUserDescription] =  useState();
+  const [userAvatar, setUserAvatar] =  useState();
+  const [cards, setCards] =  useState([]);
 
   useEffect(()=>{
-    api.getUserInfo()
-    .then(res=>{
-      setInfoName(res.name)
-      setInfoDescription(res.about)
-      setInfoAvatar(res.avatar)
-    });
-  }, [])
-  
-  useEffect(()=>{
-    api.getCardsFromServer()
-    .then(res=>{
-      const items = res.map(item => ({
-        link: item.link,
-        numberOfLikes: item.likes.length,
-        name: item.name,
-        id:item._id
-      }))
-      setInfoCard(items)
-    });
-  }, [])
+    Promise.all([
+      api.getUserInfo(),
+      api.getCardsFromServer()
+    ])
+    .then(
+      json=>{
+        const [userInfo, data] = json;
+        setUserName(userInfo.name)
+        setUserDescription(userInfo.about)
+        setUserAvatar(userInfo.avatar)
+        const items = data.map(item => ({
+            link: item.link,
+            numberOfLikes: item.likes.length,
+            name: item.name,
+            id:item._id
+          }))
+          setCards(items)
+        });
+      }, [])
 
   return(
     <>

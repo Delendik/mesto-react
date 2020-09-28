@@ -4,6 +4,7 @@
 @import url(./__like/card__like.css);
 @import url(./__like/_black/card__like_black.css);
 @import url(./__trash/card__trash.css);
+@import url(./__trash/_hidden/card__trash_hidden.css);
 
 .card{
   width: 282px;

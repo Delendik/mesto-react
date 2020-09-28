@@ -3,13 +3,6 @@ class Api{
     this.url = url;
     this.headers = headers;
   }
-
-  _getResponseData(res){    
-      if(res.ok){
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-  }
   
   getUserInfo(){
     return fetch(`${this.url}/users/me`, {
@@ -29,11 +22,11 @@ class Api{
     });
   }
 
-  changeUserInfo(items){
+  changeUserInfo({name, about}){
     return fetch(`${this.url}/users/me`, {
       method: 'PATCH',
       headers: this.headers,
-      body: JSON.stringify(items)
+      body: JSON.stringify({name, about})
     })
     .then(res =>{ 
       return this._getResponseData(res);
@@ -72,9 +65,9 @@ class Api{
     });
   }
 
-  likeCard(id){
+  changeLikeCardStatus(id, isLiked){
     return fetch(`${this.url}/cards/likes/${id}`, {
-      method: 'PUT',
+      method: isLiked ?  'PUT' : 'DELETE',
       headers: this.headers
     })
     .then(res =>{ 
@@ -82,14 +75,11 @@ class Api{
     });
   }
 
-  deleteLikeCard(id){
-    return fetch(`${this.url}/cards/likes/${id}`, {
-      method: 'DELETE',
-      headers: this.headers
-    })
-    .then(res =>{ 
-      return this._getResponseData(res);
-    });
+  _getResponseData(res){    
+    if(res.ok){
+      return res.json()
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
   }
 }
 

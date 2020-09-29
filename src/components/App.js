@@ -51,7 +51,10 @@ function App() {
       const newCards = cards.map((c) => c._id === card._id ? newCard : c);
       // Обновляем стейт
       setCards(newCards);
-    });
+    })
+    .catch((err) => { 
+      console.log(err);  
+    }); 
   } 
 
   function handleCardDelete(card){

@@ -19,10 +19,27 @@ function App() {
   const [cards, setCards] =  useState([]);
   
   useEffect(()=>{
-    api.getUserInfo()
-    .then(res=>{
-      setCurrentUser(res)
-    })
+    Promise.all([ 
+      api.getUserInfo(), 
+      api.getCardsFromServer() 
+    ]) 
+    .then( 
+      json=>{ 
+        const [userInfo, data] = json; 
+        setCurrentUser(userInfo)
+        const items = data.map(item => ({ 
+          link: item.link,
+          likes: item.likes,
+          name: item.name,
+          _id:item._id,
+          owner:item.owner
+          })) 
+          setCards(items) 
+        }
+    )
+    .catch((err) => { 
+      console.log(err);  
+    }); 
   }, [])
 
   function handleCardLike(card) {
@@ -41,23 +58,11 @@ function App() {
     api.deleteCard(card._id).then(() => {
       const newCards = cards.filter((c) => c._id !== card._id );
       setCards(newCards);
-    });
+    })
+    .catch((err) => { 
+      console.log(err);  
+    }); 
   }
-
-  useEffect(()=>{
-    api.getCardsFromServer()
-    .then(
-      res=>{
-        const items = res.map(item => ({
-            link: item.link,
-            likes: item.likes,
-            name: item.name,
-            _id:item._id,
-            owner:item.owner
-          }))
-          setCards(items)
-        });
-      }, [])
 
   function handleEditProfileClick(){
     isOpenEditProfile(true);
@@ -75,7 +80,10 @@ function App() {
     api.changeUserInfo(user)
     .then(res=>{
       setCurrentUser(res)
-    });
+    })
+    .catch((err) => { 
+      console.log(err);  
+    }); 
     isOpenEditProfile(false);
   }
 
@@ -83,7 +91,10 @@ function App() {
     api.changeAvatar(avatar)
     .then(res=>{
       setCurrentUser(res)
-    });
+    })
+    .catch((err) => { 
+      console.log(err);  
+    }); 
     isOpenEditAvatar(false);
   }
 
@@ -91,7 +102,10 @@ function App() {
     api.addNewCard(card).then(
       (newCard) => {
       setCards([...cards, newCard]); 
-    });
+    })
+    .catch((err) => { 
+      console.log(err);  
+    }); 
     isOpenAddPlace(false);
   }
 

@@ -30,7 +30,7 @@ function Card({link, likes, name, owner, _id, onCardClick, onCardLike, onCardDel
   // Создаём переменную, которую после зададим в `className` для кнопки лайка
   const cardLikeButtonClassName = (
     `${isLiked ? 'card__like_black' : 'card__like'}`
-  ); ; 
+  ); 
   
   return(
     <div className="templateCard">

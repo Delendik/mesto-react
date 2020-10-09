@@ -21,7 +21,7 @@
 
 **Результат**
 
-Сайт:  https://delendik.github.io/mesto-react/
+Проект: https://github.com/Delendik/mesto-react
 
 
 

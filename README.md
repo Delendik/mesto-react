@@ -2,7 +2,7 @@
 
 **Интро**
 
-Аналогичный сайт https://delendik.github.io/mesto/, написанный на React
+Был сайт https://delendik.github.io/mesto/, переписал его на React
 
 **Технологии при создании сайта**
 
@@ -21,7 +21,7 @@
 
 **Результат**
 
-Проект: https://github.com/Delendik/mesto-react
+Сайт: https://delendik.github.io/mesto-react/
 
 
 
